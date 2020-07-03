@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title>
+      News per category
+    </ion-title>
+  </ion-toolbar>
+  <ion-segment scrollable (ionChange)="segmentChanged($event)" value="general">
+    <ion-segment-button value="general">
+      <ion-label>General</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="business">
+      <ion-label>Bussiness</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="entertainment">
+      <ion-label>Entertainment</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="health">
+      <ion-label>Health</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="science">
+      <ion-label>Science</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="sports">
+      <ion-label>Sports</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="technology">
+      <ion-label>Technology</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center" *ngIf="isLoading" >
+    <ion-col size="2">
+      <ion-spinner
+        class="loading"
+        name="crescent"          
+      ></ion-spinner>
+    </ion-col>
+  </ion-row>
+  </ion-grid>
+<app-news [articles]="articles"></app-news>
+<ion-infinite-scroll threshold="100px" (ionInfinite)="fetchMoreData($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more news..."
+  >
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+</ion-content>

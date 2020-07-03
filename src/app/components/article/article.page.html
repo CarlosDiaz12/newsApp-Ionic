@@ -1,0 +1,19 @@
+<ion-card>
+  <ion-card-header class="header">
+    <ion-item class="row-options" lines="none">
+      <ion-label>
+        <span>{{index + 1}}. </span>
+        <span class="sourceName">{{ article.source.name}}</span>
+      </ion-label>
+      <ion-button fill="clear" (click)="presentActionSheet(article)" color="secondary">
+        <ion-icon slot="end" name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-card-title class="title">{{ article.title}}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-img [src]="article.urlToImage"></ion-img>
+    <hr />
+    <p>{{ article.description}}</p>
+  </ion-card-content>
+</ion-card>
