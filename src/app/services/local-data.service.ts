@@ -27,6 +27,17 @@ export class LocalDataService {
     return this.favorites;
   }
 
+
+  isFavorite(article: Article): number {
+    return this.favorites.findIndex(a => a.title === article.title);
+  }
+
+  removeFromFavorites(article: Article) {
+    const articleToRemove = this.favorites.findIndex(a => a.title === article.title);
+    this.favorites.splice(articleToRemove, 1);
+    this.storage.set('favorites', this.favorites);
+  }
+
   loadAllFavorites(): void {
     this.storage.get('favorites').then((value: Article[]) => {
       if (value) {

@@ -1,7 +1,12 @@
 <ion-grid >
-  <ion-row >
+  <ion-row>
     <ion-col size="12" *ngFor="let article of articles; let index = index">
-      <app-article [article]="article" [index]="index" [isFavorite]="isFavorite"></app-article>
+      <app-article [article]="article" [index]="index" ></app-article>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="articles.length === 0">
+    <ion-col class="ion-text-center">
+      <p>No favorite news added</p>
     </ion-col>
   </ion-row>
 </ion-grid>

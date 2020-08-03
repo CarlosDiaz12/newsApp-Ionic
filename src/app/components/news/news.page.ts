@@ -8,7 +8,7 @@ import { Article } from '../../models/Article';
 })
 export class NewsPage implements OnInit {
  @Input() articles: Article[];
- @Input() isFavorite: boolean;
+// @Input() isFavorite: boolean;
   constructor() { }
 
   ngOnInit() {

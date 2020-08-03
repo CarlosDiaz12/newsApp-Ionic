@@ -13,7 +13,7 @@ import { ToastController } from '@ionic/angular';
 export class ArticlePage implements OnInit {
   @Input() article: Article;
   @Input() index: number;
-  @Input() isFavorite: boolean;
+   private isFavorite: boolean;
 
   constructor(
     public actionSheetController: ActionSheetController,
@@ -37,24 +37,6 @@ export class ArticlePage implements OnInit {
 
     const options = [
       {
-        text: 'Favorite',
-        icon: 'heart',
-        handler: () => {
-          console.log('Favorite clicked');
-          let message;
-          let color;
-          if (this.localData.saveArticle(article)) {
-            message = 'Article saved';
-            color = 'success';
-          } else {
-            message = 'Article already saved';
-            color = 'warning';
-          }
-          // shows a toaster
-          this.presentToast(message, color);
-        },
-      },
-      {
         text: 'Share',
         icon: 'share',
         handler: () => {
@@ -71,8 +53,42 @@ export class ArticlePage implements OnInit {
       }
     ];
 
-    if (this.isFavorite) {
-      options.shift();
+    this.isFavorite = this.localData.isFavorite(article) === -1 ? false : true;
+    if (!this.isFavorite) {
+      const addToFav = {
+        text: 'Add to Favorite',
+        icon: 'heart',
+        handler: () => {
+          console.log('Favorite clicked');
+          let message;
+          let color;
+          if (this.localData.saveArticle(article)) {
+            message = 'Article saved';
+            color = 'success';
+          } else {
+            message = 'Article already saved';
+            color = 'warning';
+          }
+          // shows a toaster
+          this.presentToast(message, color);
+        },
+      };
+      options.unshift(addToFav);
+    } else {
+      const removeFromFav = {
+        text: 'Revome from Favorite',
+        icon: 'heart',
+        handler: () => {
+          console.log('Favorite clicked');
+          const color = 'success';
+          const message = 'Article removed from favorites';
+          this.localData.removeFromFavorites(article);
+          // shows a toaster
+          this.presentToast(message, color);
+        },
+      };
+
+      options.unshift(removeFromFav);
     }
 
 
